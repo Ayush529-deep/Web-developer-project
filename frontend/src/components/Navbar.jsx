@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 const LINKS = [
   { href: '/#biodiversity', label: 'Community' },
@@ -11,6 +11,7 @@ const LINKS = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(() => window.scrollY > 40)
   const [open, setOpen] = useState(false)
+  const onAbout = useLocation().pathname === '/about'
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -21,7 +22,7 @@ export default function Navbar() {
   const close = () => setOpen(false)
 
   return (
-    <header className={`nav ${scrolled ? 'is-scrolled' : ''} ${open ? 'is-open' : ''}`}>
+    <header className={`nav ${scrolled ? 'is-scrolled' : ''} ${open ? 'is-open' : ''} ${onAbout ? 'nav-about' : ''}`}>
       <div className="nav-inner">
         <a href="/#top" className="logo" onClick={close}>
           Notosan

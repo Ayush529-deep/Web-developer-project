@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import useParallax from './hooks/useParallax'
 import AboutPage from './pages/AboutPage'
@@ -24,6 +24,9 @@ function Home() {
 }
 
 export default function App() {
+  // the About page draws its own footer
+  const onAbout = useLocation().pathname === '/about'
+
   return (
     <>
       <Navbar />
@@ -33,11 +36,13 @@ export default function App() {
           <Route path="/about" element={<AboutPage />} />
         </Routes>
       </main>
-      <footer id="contact" className="footer">
-        <span className="logo">Notosan</span>
-        <span>Noto Nature Park · Ishikawa, Japan</span>
-        <span>© Notosan</span>
-      </footer>
+      {!onAbout && (
+        <footer id="contact" className="footer">
+          <span className="logo">Notosan</span>
+          <span>Noto Nature Park · Ishikawa, Japan</span>
+          <span>© Notosan</span>
+        </footer>
+      )}
     </>
   )
 }
